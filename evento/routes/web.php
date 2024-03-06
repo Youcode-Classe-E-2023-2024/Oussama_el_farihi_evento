@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\RestricteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::post('/roles/assign', [RoleController::class, 'assign'])->name('roles.assign');
-
+    Route::get('/restricte', [RestricteController::class, 'index'])->name('restricte.index');
 });
 
 require __DIR__.'/auth.php';

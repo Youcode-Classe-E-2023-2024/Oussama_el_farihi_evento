@@ -18,7 +18,7 @@ class RoleController extends Controller
     public function assign(Request $request)
 {
     $user = User::findOrFail($request->user_id);
-    $role = Role::findById($request->role_id); // Use findById to fetch the role model by ID
+    $role = Role::findById($request->role_id);
 
     if (!$role) {
         return back()->withErrors(['role' => 'Role does not exist.']);
