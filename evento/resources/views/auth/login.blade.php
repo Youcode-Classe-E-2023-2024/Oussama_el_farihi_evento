@@ -1,4 +1,11 @@
 <x-guest-layout>
+     <!-- Restriction Error Message -->
+     @if (session('error'))
+        <div class="mb-4 text-sm font-medium text-red-600">
+            {{ session('error') }}
+        </div>
+    @endif
+
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 

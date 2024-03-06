@@ -21,17 +21,20 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+// Apply the 'checkIfRestricted' middleware to the dashboard route as an example
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+})->middleware(['auth', 'verified', 'checkIfRestricted'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
+// Apply the middleware to all routes within this group
+Route::middleware(['auth', 'checkIfRestricted'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->group(function () {
+// Apply the middleware to all admin routes, ensuring restricted users can't access admin functionalities
+Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::post('/roles/assign', [RoleController::class, 'assign'])->name('roles.assign');
