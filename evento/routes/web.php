@@ -36,6 +36,7 @@ Route::middleware(['auth', 'role:admin'])->name('admin.')->prefix('admin')->grou
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::post('/roles/assign', [RoleController::class, 'assign'])->name('roles.assign');
     Route::get('/restricte', [RestricteController::class, 'index'])->name('restricte.index');
+    Route::post('/restricte/{user}/restrict', [RestricteController::class, 'restrict'])->name('restricte.restrict');
 });
 
 require __DIR__.'/auth.php';
