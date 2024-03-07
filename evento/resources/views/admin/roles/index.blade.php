@@ -1,41 +1,47 @@
 <x-admin-layout>
-    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 py-6">
-        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-            <div class="p-6 bg-white border-b border-gray-200">
-                <h2 class="font-semibold text-xl text-gray-800 leading-tight">Manage User Roles</h2>
-                <table class="min-w-full divide-y divide-gray-200 mt-6">
-                    <thead class="bg-gray-50">
-                        <tr>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Roles</th>
-                            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-gray-200">
-                        @foreach ($users as $user)
+    <div class="py-12 w-full">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-6 space-y-8">
+                <div class="flex justify-between items-center mb-4">
+                    <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Manage User Roles</h2>
+                </div>
+                <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
+                    <table class="w-full text-left text-sm text-gray-500 dark:text-gray-400">
+                        <thead class="text-xs uppercase text-gray-700 bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                             <tr>
-                                <td class="px-6 py-4 whitespace-nowrap">{{ $user->name }}</td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <th scope="col" class="px-6 py-3">Name</th>
+                                <th scope="col" class="px-6 py-3">Roles</th>
+                                <th scope="col" class="px-6 py-3">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($users as $user)
+                            <tr class="border-b dark:border-gray-700 dark:bg-gray-800">
+                                <td class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">{{ $user->name }}</td>
+                                <td class="px-6 py-4">
                                     @foreach ($user->roles as $role)
                                         <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">{{ $role->name }}</span>
                                     @endforeach
                                 </td>
-                                <td class="px-6 py-4 whitespace-nowrap">
+                                <td class="px-6 py-4">
                                     <form action="{{ route('admin.roles.assign') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="user_id" value="{{ $user->id }}">
-                                        <select name="role_id" onchange="this.form.submit()">
-                                            <option value="">Assign Role</option>
-                                            @foreach ($roles as $role)
-                                                <option value="{{ $role->id }}">{{ $role->name }}</option>
-                                            @endforeach
-                                        </select>
+                                        <div class="inline-flex rounded-md shadow-sm" role="group">
+                                            <select name="role_id" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-l-md focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:text-white" onchange="this.form.submit()">
+                                                <option value="">Assign Role</option>
+                                                @foreach ($roles as $role)
+                                                    <option value="{{ $role->id }}">{{ $role->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </form>
                                 </td>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\CategorieController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
@@ -40,6 +41,15 @@ Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->
     Route::post('/roles/assign', [RoleController::class, 'assign'])->name('roles.assign');
     Route::get('/restricte', [RestricteController::class, 'index'])->name('restricte.index');
     Route::post('/restricte/{user}/restrict', [RestricteController::class, 'restrict'])->name('restricte.restrict');
+    
+    
+    Route::get('/categories', [CategorieController::class, 'index'])->name('categories.index');
+    Route::get('/categories/create', [CategorieController::class, 'create'])->name('categories.create');
+    Route::post('/categories', [CategorieController::class, 'store'])->name('categories.store');
+    Route::get('categories/{category}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
+    Route::delete('/categories/{category}', [CategorieController::class, 'destroy'])->name('categories.destroy');
+    Route::patch('/categories/{category}', [CategorieController::class, 'update'])->name('categories.update');
+
 });
 
 require __DIR__.'/auth.php';
