@@ -1,11 +1,13 @@
 <?php
 
-use App\Http\Controllers\Admin\CategorieController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Console\Scheduling\Event;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\IndexController;
+use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\RestricteController;
+use App\Http\Controllers\Organizer\EventController;
 use App\Http\Controllers\Organizer\IndexController as IndexxController;
 
 /*
@@ -53,6 +55,7 @@ Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->
 
 Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organizer.')->prefix('organizer')->group(function () {
     Route::get('/', [IndexxController::class, 'index'])->name('index');
+    Route::get('/events/create', [EventController::class, 'index'])->name('events.create');
 });
 
 require __DIR__.'/auth.php';
