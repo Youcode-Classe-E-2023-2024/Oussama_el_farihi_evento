@@ -38,7 +38,4 @@ class CategorieController extends Controller
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
     
-
-    
-    
 }

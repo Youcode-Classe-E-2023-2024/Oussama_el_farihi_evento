@@ -14,7 +14,7 @@
                 </div>
                 <form action="{{ route('admin.categories.update', $category) }}" method="POST" class="space-y-6">
     @csrf
-    @method('PATCH') <!-- Spoofing PATCH method -->
+    @method('PATCH')
     <div>
         <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Category Name:</label>
         <input type="text" name="name" id="name" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" value="{{ old('name', $category->name) }}">
