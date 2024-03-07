@@ -57,6 +57,8 @@ Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organi
     Route::get('/', [IndexxController::class, 'index'])->name('index');
     Route::get('/events/create', [EventController::class, 'index'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
+    Route::get('/events', [EventController::class, 'index2'])->name('events.index');
+
 
 });
 

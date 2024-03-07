@@ -9,6 +9,12 @@ use App\Models\Category; // Make sure to import the Category model
 
 class EventController extends Controller
 {
+
+    public function index2()
+{
+    $events = Event::all(); // Fetch all events
+    return view('organizer.events.index', compact('events')); // Pass events to the view
+}
     public function index(){
         $categories = Category::all(); // Fetch all categories from the database
         return view('organizer.events.create', compact('categories')); // Pass the categories to the view
