@@ -6,6 +6,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\RestricteController;
+use App\Http\Controllers\Organizer\IndexController as IndexxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +35,7 @@ Route::middleware(['auth', 'checkIfRestricted'])->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-// Apply the middleware to all admin routes, ensuring restricted users can't access admin functionalities
+
 Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
@@ -51,7 +52,7 @@ Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->
 });
 
 Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organizer.')->prefix('organizer')->group(function () {
-    Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::get('/', [IndexxController::class, 'index'])->name('index');
 });
 
 require __DIR__.'/auth.php';
