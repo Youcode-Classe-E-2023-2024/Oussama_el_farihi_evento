@@ -20,6 +20,11 @@
                         {{ __('Admin') }}
                     </x-nav-link>
                     @endrole
+                    @role('organizer')
+                    <x-nav-link :href="route('organizer.index')" :active="request()->routeIs('organizer.index')">
+                        {{ __('organizer') }}
+                    </x-nav-link>
+                    @endrole
                 </div>
             </div>
 
