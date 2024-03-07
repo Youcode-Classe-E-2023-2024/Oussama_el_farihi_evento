@@ -5,8 +5,8 @@
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-xl font-semibold text-gray-800 dark:text-white">Créer un nouvel événement</h2>
                 </div>
-                <form action="" method="POST" class="space-y-6" enctype="multipart/form-data">
-                    @csrf <!-- Cross-Site Request Forgery Token -->
+                <form action="{{ route('organizer.events.store') }}" method="POST" class="space-y-6" enctype="multipart/form-data">
+                    @csrf
                     <div>
                         <label for="title" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Titre de l'événement:</label>
                         <input type="text" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="title" name="title" required>
@@ -25,7 +25,7 @@
                     </div>
                     <div>
     <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Catégorie:</label>
-    <select class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="category" name="category">
+    <select class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="category" name="category_id">
         <option value="">Sélectionnez une catégorie</option>
         @foreach($categories as $category)
             <option value="{{ $category->id }}">{{ $category->name }}</option>
@@ -38,7 +38,7 @@
                     </div>
                     <div>
                         <label for="event_image" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Image de l'événement:</label>
-                        <input type="file" class="mt-1 block w-full px-3 py-2 file:bg-white file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:px-4 file:py-2 file:text-gray-700 file:shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="event_image" name="event_image" accept="image/*">
+                        <input type="file" class="mt-1 block w-full px-3 py-2 file:bg-white file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:px-4 file:py-2 file:text-gray-700 file:shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="image" name="image" accept="image/*">
                     </div>
                     <button type="submit" class="w-full px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition ease-in-out duration-300">Créer l'événement</button>
                 </form>
