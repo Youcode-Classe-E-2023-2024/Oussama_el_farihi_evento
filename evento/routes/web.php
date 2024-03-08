@@ -22,9 +22,11 @@ use App\Http\Controllers\Organizer\IndexController as IndexxController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
+
+Route::get('/', [CategorieController::class, 'indexWelcome'])->name('welcome');
 
 // Apply the 'checkIfRestricted' middleware to the dashboard route as an example
 Route::get('/dashboard', function () {

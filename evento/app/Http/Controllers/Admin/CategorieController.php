@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Event;
 use App\Models\Category;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CategorieController extends Controller
 {
@@ -37,5 +38,15 @@ class CategorieController extends Controller
         $category->update($request->only('name'));
         return redirect()->route('admin.categories.index')->with('success', 'Category updated successfully.');
     }
-    
+
+    public function indexWelcome()
+{
+    $categories = Category::all();
+    $events = Event::where('status', 1)->get();
+
+    // dd($categories, $events);
+
+    return view('welcome', compact('categories', 'events'));
+}
+
 }

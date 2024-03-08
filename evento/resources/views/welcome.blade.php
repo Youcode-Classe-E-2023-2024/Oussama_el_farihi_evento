@@ -31,12 +31,19 @@
         <a href="pricing">Pricing</a>
       </li>
     </ul>
-    <div class="font-montserrat hidden md:block">
-      <button class="mr-6">Login</button>
-      <button class="py-2 px-4 text-white bg-black rounded-3xl">
-        Signup
-      </button>
-    </div>
+    @if (Route::has('login'))
+                <div class="font-montserrat hidden md:block">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="mr-6">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="py-2 px-4 text-white bg-black rounded-3xl">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
     <div id="showMenu" class="md:hidden">
       <img src='assets/logos/Menu.svg' alt="Menu icon" />
     </div>
@@ -92,103 +99,55 @@
     </div>
   </section>
 
-  <!-- How it works -->
-  <section class="bg-black text-white sectionSize">
+  <!-- Categories Section -->
+<section class="bg-black text-white sectionSize">
     <div>
-      <h2 class="secondaryTitle bg-underline2 bg-100%">How it works</h2>
+        <h2 class="secondaryTitle bg-underline2 bg-100%">Categories</h2>
     </div>
-    <div class="flex flex-col md:flex-row">
-      <div class="flex-1 mx-8 flex flex-col items-center my-4">
-        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
-          1
-        </div>
-        <h3 class="font-montserrat font-medium text-xl mb-2">Eat</h3>
-        <p class="text-center font-montserrat">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-        </p>
-      </div>
-      <div class="flex-1 mx-8 flex flex-col items-center my-4">
-        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
-          2
-        </div>
-        <h3 class="font-montserrat font-medium text-xl mb-2">Sleep</h3>
-        <p class="text-center font-montserrat">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-        </p>
-      </div>
-      <div class="flex-1 mx-8 flex flex-col items-center my-4">
-        <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
-          3
-        </div>
-        <h3 class="font-montserrat font-medium text-xl mb-2">Rave</h3>
-        <p class="text-center font-montserrat">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-        </p>
-      </div>
+    <div class="flex flex-wrap justify-center md:flex-row">
+        @foreach ($categories as $category)
+            <div class="flex-1 mx-8 flex flex-col items-center my-4 text-center">
+                <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+                    <span class="font-bold text-xl">{{ strtoupper($category->name[0]) }}</span>
+                </div>
+                <h3 class="font-montserrat font-medium text-xl mb-2">{{ $category->name }}</h3>
+            </div>
+        @endforeach
     </div>
-  </section>
+</section>
 
-  <!-- Features -->
-  <section class="sectionSize bg-secondary">
-    <div>
-      <h2 class="secondaryTitle bg-underline3 bg-100%">Features</h2>
-    </div>
-    <div class="md:grid md:grid-cols-2 md:grid-rows-2">
 
-      <div class="flex items-start font-montserrat my-6 mr-10">
-        <img src='assets/logos/Heart.svg' alt='' class="h-7 mr-4" />
-        <div>
-          <h3 class="font-semibold text-2xl">Feature #1</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Quisquam voluptate praesentium tenetur earum repellendus! Dicta
-            culpa consequuntur saepe quibusdam labore, est ex ducimus
-            tempore, quos illum officiis, pariatur ea placeat.
-          </p>
-        </div>
-      </div>
+  <!-- Features Section -->
+<section class="sectionSize bg-secondary">
+  <div>
+    <h2 class="secondaryTitle bg-underline3 bg-100%">Events</h2>
+  </div>
+  <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
 
-      <div class="flex items-start font-montserrat my-6 mr-10">
-        <img src='assets/logos/Heart.svg' alt='' class="h-7 mr-4" />
-        <div>
-          <h3 class="font-semibold text-2xl">Feature #2</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Quisquam voluptate praesentium tenetur earum repellendus! Dicta
-            culpa consequuntur saepe quibusdam labore, est ex ducimus
-            tempore, quos illum officiis, pariatur ea placeat.
-          </p>
-        </div>
-      </div>
+  @foreach ($events as $event)
+<div class="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white text-gray-900">
+  <img class="w-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Image" style="height: 160px; object-fit: cover;">
+  <div class="px-6 py-4">
+    <div class="font-bold text-xl mb-2">{{ $event->name }}</div>
+    <p class="text-gray-700 text-base">
+      {{ Str::limit($event->description, 100) }}
+    </p>
+    <!-- Additional Info -->
+    <p class="text-gray-600 text-sm mt-2">Date: {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</p>
+    <p class="text-gray-600 text-sm">Place: {{ $event->place_number }}</p>
+    <p class="text-gray-600 text-sm">City: {{ $event->city }}</p>
+  </div>
+  <div class="px-6 pt-4 pb-2">
+    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+      #{{ $event->category?->name ?? 'Uncategorized' }}
+    </span>
+    <a href="" class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">Learn More</a>
+  </div>
+</div>
+@endforeach
+  </div>
+</section>
 
-      <div class="flex items-start font-montserrat my-6 mr-10">
-        <img src='assets/logos/Heart.svg' alt='' class="h-7 mr-4" />
-        <div>
-          <h3 class="font-semibold text-2xl">Feature #3</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Quisquam voluptate praesentium tenetur earum repellendus! Dicta
-            culpa consequuntur saepe quibusdam labore, est ex ducimus
-            tempore, quos illum officiis, pariatur ea placeat.
-          </p>
-        </div>
-      </div>
-
-      <div class="flex items-start font-montserrat my-6 mr-10">
-        <img src='assets/logos/Heart.svg' alt='' class="h-7 mr-4" />
-        <div>
-          <h3 class="font-semibold text-2xl">Feature #4</h3>
-          <p>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Quisquam voluptate praesentium tenetur earum repellendus! Dicta
-            culpa consequuntur saepe quibusdam labore, est ex ducimus
-            tempore, quos illum officiis, pariatur ea placeat.
-          </p>
-        </div>
-      </div>
-
-    </div>
-  </section>
 
   <!-- Pricing -->
   <section class="sectionSize bg-secondary py-0">
