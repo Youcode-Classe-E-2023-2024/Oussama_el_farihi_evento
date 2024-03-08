@@ -39,18 +39,18 @@ class EventController extends Controller
             'location' => 'required|string|max:255',
             'category_id' => 'required|exists:categories,id',
             'available_spots' => 'required|integer',
-            'image' => 'sometimes|file|image|max:5000', // Example validation
+            'bookings_type' => 'required|integer',
+            'image' => 'sometimes|file|image|max:5000',
         ]);
 
-        // Handle file upload for the image, if it exists
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('event_images', 'public');
         }
 
-        // Create the event
         Event::create($data);
 
-        // Redirect or return response
+        dd($request);
+
         return redirect()->route('organizer.events.index')->with('success', 'Event created successfully.');
     }
 
@@ -60,7 +60,8 @@ class EventController extends Controller
         'title' => 'required|string|max:255',
         'date' => 'required|date',
         'location' => 'required|string|max:255',
-        'available_spots' => 'required|string|max:255',
+        'available_spots' => 'required|integer',
+        'bookings_type' => 'required|integer',
     ]);
 
     $event = Event::findOrFail($eventId);

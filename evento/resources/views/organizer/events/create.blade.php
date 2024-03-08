@@ -45,6 +45,13 @@
                         <input type="number" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="available_spots" name="available_spots" required>
                     </div>
                     <div>
+                        <label for="bookings_type" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Booking Acceptance:</label>
+                        <select id="bookings_type" name="bookings_type" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue">
+                            <option value="0">Manual Validation</option>
+                            <option value="1">Automatic Acceptance</option>
+                        </select>
+                    </div>
+                    <div>
                         <label for="event_image" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Image de l'événement:</label>
                         <input type="file" class="mt-1 block w-full px-3 py-2 file:bg-white file:border file:border-gray-300 file:rounded-md file:text-sm file:font-semibold file:px-4 file:py-2 file:text-gray-700 file:shadow-sm focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="image" name="image" accept="image/*">
                     </div>
