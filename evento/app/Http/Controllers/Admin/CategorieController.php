@@ -42,7 +42,7 @@ class CategorieController extends Controller
     public function indexWelcome()
 {
     $categories = Category::all();
-    $events = Event::where('status', 1)->get();
+    $events = Event::where('status', 1)->paginate(6);
 
     // dd($categories, $events);
 
