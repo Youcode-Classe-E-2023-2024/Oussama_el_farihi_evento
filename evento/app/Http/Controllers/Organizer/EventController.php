@@ -12,13 +12,21 @@ class EventController extends Controller
 
     public function index2()
 {
-    $events = Event::all(); // Fetch all events
-    return view('organizer.events.index', compact('events')); // Pass events to the view
+    $events = Event::all();
+    return view('organizer.events.index', compact('events'));
 }
     public function index(){
-        $categories = Category::all(); // Fetch all categories from the database
-        return view('organizer.events.create', compact('categories')); // Pass the categories to the view
+        $categories = Category::all();
+        return view('organizer.events.create', compact('categories'));
     }
+
+    public function edit($eventId)
+{
+    $event = Event::findOrFail($eventId);
+
+    return view('organizer.events.edit', compact('event'));
+}
+
 
     public function store(Request $request)
     {

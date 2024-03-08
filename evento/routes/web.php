@@ -58,6 +58,8 @@ Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organi
     Route::get('/events/create', [EventController::class, 'index'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::get('/events', [EventController::class, 'index2'])->name('events.index');
+    Route::get('/events/{event}/edit', [EventController::class, 'edit'])->name('events.edit');
+
 
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');

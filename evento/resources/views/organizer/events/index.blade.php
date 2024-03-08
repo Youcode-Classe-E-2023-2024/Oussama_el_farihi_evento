@@ -24,7 +24,7 @@
                         <td class="py-4 px-6 border-b border-gray-300">{{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}</td>
                         <td class="py-4 px-6 border-b border-gray-300">{{ $event->location }}</td>
                         <td class="py-4 px-6 border-b border-gray-300">
-                            <a href="" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out duration-150 mr-2">Edit</a>
+                            <a href="{{ route('organizer.events.edit', $event->id) }}" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out duration-150 mr-2">Edit</a>
                             <form action="{{ route('organizer.events.destroy', $event->id) }}" method="POST" class="inline">
                                 @csrf
                                 @method('DELETE')
