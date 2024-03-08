@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\IndexController;
 use App\Http\Controllers\Admin\CategorieController;
 use App\Http\Controllers\Admin\RestricteController;
 use App\Http\Controllers\Organizer\EventController;
+use App\Http\Controllers\Admin\EventController as EventAController;
 use App\Http\Controllers\Organizer\IndexController as IndexxController;
 
 /*
@@ -50,6 +51,10 @@ Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->
     Route::get('categories/{category}/edit', [CategorieController::class, 'edit'])->name('categories.edit');
     Route::delete('/categories/{category}', [CategorieController::class, 'destroy'])->name('categories.destroy');
     Route::patch('/categories/{category}', [CategorieController::class, 'update'])->name('categories.update');
+
+    Route::get('/events/index', [EventAController::class, 'approvalIndex'])->name('events.index');
+    Route::post('/events/{event}/approve', [EventAController::class, 'approve'])->name('events.approve');
+
 
 });
 

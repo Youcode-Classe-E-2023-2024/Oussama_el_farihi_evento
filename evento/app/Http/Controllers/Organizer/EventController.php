@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Organizer;
 use App\Models\Event;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category; // Make sure to import the Category model
+use App\Models\Category;
 
 class EventController extends Controller
 {
@@ -49,7 +49,7 @@ class EventController extends Controller
 
         Event::create($data);
 
-        dd($request);
+        // dd($request);
 
         return redirect()->route('organizer.events.index')->with('success', 'Event created successfully.');
     }
