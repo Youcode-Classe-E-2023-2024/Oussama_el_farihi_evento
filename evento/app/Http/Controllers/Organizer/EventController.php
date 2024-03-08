@@ -13,6 +13,7 @@ class EventController extends Controller
     public function index2()
 {
     $events = Event::all();
+    // dd($events);
     return view('organizer.events.index', compact('events'));
 }
     public function index(){
@@ -59,6 +60,7 @@ class EventController extends Controller
         'title' => 'required|string|max:255',
         'date' => 'required|date',
         'location' => 'required|string|max:255',
+        'available_spots' => 'required|string|max:255',
     ]);
 
     $event = Event::findOrFail($eventId);

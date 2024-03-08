@@ -20,18 +20,26 @@
                         <input type="date" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="date" name="date" required>
                     </div>
                     <div>
-                        <label for="location" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Lieu:</label>
-                        <input type="text" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="location" name="location" required>
-                    </div>
-                    <div>
-    <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Catégorie:</label>
-    <select class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="category" name="category_id">
-        <option value="">Sélectionnez une catégorie</option>
-        @foreach($categories as $category)
-            <option value="{{ $category->id }}">{{ $category->name }}</option>
-        @endforeach
+    <label for="location" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Lieu:</label>
+    <select id="location" name="location" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" required>
+        <option value="Casablanca">Casablanca</option>
+        <option value="Rabat">Rabat</option>
+        <option value="Fes">Fes</option>
+        <option value="Marrakech">Marrakech</option>
+        <option value="Tangier">Tangier</option>
+        <option value="Agadir">Agadir</option>
+        <option value="Essaouira">Essaouira</option>
     </select>
 </div>
+                    <div>
+                        <label for="category" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Catégorie:</label>
+                        <select class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="category" name="category_id">
+                            <option value="">Sélectionnez une catégorie</option>
+                            @foreach($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
                     <div>
                         <label for="available_spots" class="block text-sm font-medium text-gray-700 dark:text-gray-200">Nombre de places disponibles:</label>
                         <input type="number" class="mt-1 block w-full px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm text-sm leading-tight text-gray-700 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:text-white" id="available_spots" name="available_spots" required>

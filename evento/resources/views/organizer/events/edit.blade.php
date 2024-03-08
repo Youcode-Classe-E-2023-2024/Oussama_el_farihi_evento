@@ -22,7 +22,11 @@
                     <input type="text" name="location" id="location" value="{{ $event->location }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
                 </div>
 
-                <!-- Add more fields as necessary -->
+                <div class="mb-4">
+                    <label for="available_spots" class="block text-gray-700 text-sm font-bold mb-2">Nombre de places disponibles:</label>
+                    <input type="text" name="available_spots" id="available_spots" value="{{ $event->available_spots }}" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+                </div>
+
                 
                 <div class="mb-4">
                     <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Update Event</button>

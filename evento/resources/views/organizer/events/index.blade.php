@@ -14,6 +14,7 @@
                         <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Title</th>
                         <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Date</th>
                         <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Location</th>
+                        <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Nombre de places disponibles:</th>
                         <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Actions</th>
                     </tr>
                 </thead>
@@ -23,6 +24,7 @@
                         <td class="py-4 px-6 border-b border-gray-300">{{ $event->title }}</td>
                         <td class="py-4 px-6 border-b border-gray-300">{{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}</td>
                         <td class="py-4 px-6 border-b border-gray-300">{{ $event->location }}</td>
+                        <td class="py-4 px-6 border-b border-gray-300">{{ $event->available_spots }}</td>
                         <td class="py-4 px-6 border-b border-gray-300">
                             <a href="{{ route('organizer.events.edit', $event->id) }}" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out duration-150 mr-2">Edit</a>
                             <form action="{{ route('organizer.events.destroy', $event->id) }}" method="POST" class="inline">
