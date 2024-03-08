@@ -44,4 +44,27 @@ class EventController extends Controller
         // Redirect or return response
         return redirect()->route('organizer.events.index')->with('success', 'Event created successfully.');
     }
+
+    public function update(Request $request, $eventId)
+{
+    $validatedData = $request->validate([
+        'title' => 'required|string|max:255',
+        'date' => 'required|date',
+        'location' => 'required|string|max:255',
+    ]);
+
+    $event = Event::findOrFail($eventId);
+    $event->update($validatedData);
+
+    return redirect()->route('organizer.events.index')->with('success', 'Event updated successfully.');
+}
+
+public function destroy($eventId)
+{
+    $event = Event::findOrFail($eventId);
+    $event->delete();
+
+    return redirect()->route('organizer.events.index')->with('success', 'Event deleted successfully.');
+}
+
 }

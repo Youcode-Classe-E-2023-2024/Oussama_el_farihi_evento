@@ -1,30 +1,40 @@
 <x-organizer-layout>
-<div class="bg-gray-100">
-    <div class="container mx-auto px-4 py-8">
-        <div class="flex flex-wrap -mx-4">
-            @foreach($events as $event)
-                <div class="w-full lg:w-1/3 px-4 mb-8">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img class="w-full" src="{{ $event->image }}" alt="Event Image">
-                        <div class="p-4">
-                            <h1 class="text-2xl font-bold mb-2">{{ $event->title }}</h1>
-                            <p class="text-lg mb-4">{{ \Illuminate\Support\Str::limit($event->description, 150) }}</p>
-                            <div class="mb-4">
-                                <p class="font-bold">When:</p>
-                                <p>{{ $event->date }}</p>
-                            </div>
-                            <div class="mb-4">
-                                <p class="font-bold">Where:</p>
-                                <p>{{ $event->location }}</p>
-                            </div>
-                            <!-- Additional details here -->
-                            <button class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="button">
-                                View Details
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            @endforeach
+<div class="py-12 w-full">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-xl sm:rounded-lg p-6 space-y-8">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-xl font-semibold text-gray-800">Manage Events</h2>
+                <a href="{{ route('organizer.events.create') }}" class="inline-flex items-center px-4 py-2 bg-blue-600 text-white font-semibold text-sm rounded-lg shadow hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-75 transition ease-in-out duration-150">
+                    Create Event
+                </a>
+            </div>
+            <table class="text-left w-full border-collapse">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Title</th>
+                        <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Date</th>
+                        <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Location</th>
+                        <th class="py-3 px-6 font-bold uppercase text-sm text-gray-600 border-b border-gray-300">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($events as $event)
+                    <tr class="hover:bg-gray-50">
+                        <td class="py-4 px-6 border-b border-gray-300">{{ $event->title }}</td>
+                        <td class="py-4 px-6 border-b border-gray-300">{{ \Carbon\Carbon::parse($event->date)->format('M d, Y') }}</td>
+                        <td class="py-4 px-6 border-b border-gray-300">{{ $event->location }}</td>
+                        <td class="py-4 px-6 border-b border-gray-300">
+                            <a href="" class="text-sm bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out duration-150 mr-2">Edit</a>
+                            <form action="{{ route('organizer.events.destroy', $event->id) }}" method="POST" class="inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="text-sm bg-red-500 hover:bg-red-600 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition ease-in-out duration-150" onclick="return confirm('Are you sure?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 </div>
