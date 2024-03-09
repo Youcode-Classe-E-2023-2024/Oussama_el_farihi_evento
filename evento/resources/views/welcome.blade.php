@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,39 +116,40 @@
 
 
 
-  <!-- Features Section -->
-<section class="sectionSize bg-secondary">
-  <div>
-    <h2 class="secondaryTitle bg-underline3 bg-100%">Events</h2>
+<!-- Features Section -->
+<section class="py-12 bg-secondary">
+  <div class="text-center">
+    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">Events</h2>
   </div>
-  <div class="md:grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+  <div class="container mx-auto px-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      @foreach ($events as $event)
+      <div class="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300">
+        <img class="w-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Image" style="height: 160px; object-fit: cover;">
+        <div class="p-6">
+          <h3 class="font-bold text-xl mb-2">{{ $event->name }}</h3>
+          <p class="text-gray-700 text-base mb-4">
+            {{ Str::limit($event->description, 100) }}
+          </p>
+          <div class="text-gray-600 text-sm mb-2">Date: {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</div>
+          <div class="text-gray-600 text-sm mb-2">Place: {{ $event->place_number }}</div>
+          <div class="text-gray-600 text-sm mb-4">City: {{ $event->city }}</div>
+          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+            #{{ $event->category?->name ?? 'Uncategorized' }}
+          </span>
+          <a href="{{ route('events.index', $event->id) }}" class="inline-flex items-center justify-center bg-primary rounded-full px-4 py-2 text-sm font-semibold text-black hover:bg-primary-dark transition-colors duration-200">
+            Learn More
+            <svg class="ml-2 -mr-1 w-5 h-5" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L15.586 11H3a1 1 0 110-2h12.586l-5.293-5.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+          </a>
+        </div>
+      </div>
+      @endforeach
+    </div>
+    <div class="mt-8">
+      {{ $events->links() }}
+    </div>
+  </section>
 
-  @foreach ($events as $event)
-<div class="max-w-sm rounded overflow-hidden shadow-lg m-4 bg-white text-gray-900">
-  <img class="w-full" src="{{ asset('storage/' . $event->image) }}" alt="Event Image" style="height: 160px; object-fit: cover;">
-  <div class="px-6 py-4">
-    <div class="font-bold text-xl mb-2">{{ $event->name }}</div>
-    <p class="text-gray-700 text-base">
-      {{ Str::limit($event->description, 100) }}
-    </p>
-    <!-- Additional Info -->
-    <p class="text-gray-600 text-sm mt-2">Date: {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</p>
-    <p class="text-gray-600 text-sm">Place: {{ $event->place_number }}</p>
-    <p class="text-gray-600 text-sm">City: {{ $event->city }}</p>
-  </div>
-  <div class="px-6 pt-4 pb-2">
-    <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
-      #{{ $event->category?->name ?? 'Uncategorized' }}
-    </span>
-    <a href="{{ route('events.index', $event->id) }}" class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">Learn More</a>
-  </div>
-</div>
-@endforeach
-  </div>
-  <div class="mt-4">
-    {{ $events->links() }}
-</div>
-</section>
 
 
   <!-- Pricing -->

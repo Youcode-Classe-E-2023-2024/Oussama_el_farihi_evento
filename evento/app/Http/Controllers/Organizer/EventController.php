@@ -84,5 +84,14 @@ public function show($eventId)
     return view('events.index', compact('event'));
 }
 
+public function showByCategory($id)
+{
+    $category = Category::findOrFail($id);
+    $events = Event::where('category_id', $id)->get();
+
+    return view('events.events_by_categ', compact('events', 'category'));
+}
+
+
 
 }

@@ -31,6 +31,8 @@ Route::get('/', [CategorieController::class, 'indexWelcome'])->name('welcome');
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.index');
 
 
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'checkIfRestricted'])->name('dashboard');
