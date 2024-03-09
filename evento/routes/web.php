@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Organizer\BookingController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Console\Scheduling\Event;
 use App\Http\Controllers\ProfileController;
@@ -74,6 +75,8 @@ Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organi
 
     Route::delete('/events/{event}', [EventController::class, 'destroy'])->name('events.destroy');
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
+
+    Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
 
 
 });
