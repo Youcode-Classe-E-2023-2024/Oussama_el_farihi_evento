@@ -8,6 +8,7 @@ use App\Models\Booking;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use PDF;
 
 class BookingController extends Controller
 {
@@ -54,6 +55,19 @@ class BookingController extends Controller
         // No available spots
         return redirect()->back()->with('error', 'Sorry, there are no available spots for this event.');
     }
+
+    if ($event->bookings_type == 1) { // Automatic
+        // Generate and save a ticket...
+        
+        // After saving the ticket, generate a PDF to download
+        $pdf = PDF::loadView('tickets.download', ['event' => $event, 'user' => $user]); // Assuming you have a view file for your ticket
+        return $pdf->download('ticket-'.$event->id.'-'.$user->id.'.pdf');
+    } else {
+        // For manual approval
+        return redirect()->back()->with('info', 'Your booking request has been submitted. Please wait for confirmation.');
+    }
 }
+
+
 
 }
