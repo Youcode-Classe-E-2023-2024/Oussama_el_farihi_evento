@@ -30,7 +30,7 @@ Route::get('/', [CategorieController::class, 'indexWelcome'])->name('welcome');
 
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.index');
 
-
+Route::get('/categories/{id}/events', [EventController::class, 'showByCategory'])->name('events.events_by_categ');
 
 
 Route::get('/dashboard', function () {

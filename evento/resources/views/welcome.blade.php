@@ -105,7 +105,7 @@
     <div class="flex flex-wrap justify-center md:flex-row">
         @foreach ($categories as $category)
             <div class="flex-1 mx-8 flex flex-col items-center my-4 text-center">
-                <a href="" class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+            <a href="{{ route('events.events_by_categ', $category->id) }}" class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
                     <span class="font-bold text-xl">{{ strtoupper($category->name[0]) }}</span>
                 </a>
                 <h3 class="font-montserrat font-medium text-xl mb-2">{{ $category->name }}</h3>
