@@ -78,4 +78,11 @@ public function destroy($eventId)
     return redirect()->route('organizer.events.index')->with('success', 'Event deleted successfully.');
 }
 
+public function show($eventId)
+{
+    $event = Event::findOrFail($eventId);
+    return view('events.index', compact('event'));
+}
+
+
 }

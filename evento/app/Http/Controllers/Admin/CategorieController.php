@@ -49,4 +49,5 @@ class CategorieController extends Controller
     return view('welcome', compact('categories', 'events'));
 }
 
+
 }

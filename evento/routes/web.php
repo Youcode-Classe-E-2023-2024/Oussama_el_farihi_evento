@@ -28,12 +28,14 @@ use App\Http\Controllers\Organizer\IndexController as IndexxController;
 
 Route::get('/', [CategorieController::class, 'indexWelcome'])->name('welcome');
 
-// Apply the 'checkIfRestricted' middleware to the dashboard route as an example
+Route::get('/events/{event}', [EventController::class, 'show'])->name('events.index');
+
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified', 'checkIfRestricted'])->name('dashboard');
 
-// Apply the middleware to all routes within this group
+
 Route::middleware(['auth', 'checkIfRestricted'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

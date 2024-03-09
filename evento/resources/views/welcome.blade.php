@@ -100,21 +100,22 @@
   </section>
 
   <!-- Categories Section -->
-<section class="bg-black text-white sectionSize">
+  <section class="bg-black text-white sectionSize">
     <div>
         <h2 class="secondaryTitle bg-underline2 bg-100%">Categories</h2>
     </div>
     <div class="flex flex-wrap justify-center md:flex-row">
         @foreach ($categories as $category)
             <div class="flex-1 mx-8 flex flex-col items-center my-4 text-center">
-                <div class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
+                <a href="" class="border-2 rounded-full bg-secondary text-black h-12 w-12 flex justify-center items-center mb-3">
                     <span class="font-bold text-xl">{{ strtoupper($category->name[0]) }}</span>
-                </div>
+                </a>
                 <h3 class="font-montserrat font-medium text-xl mb-2">{{ $category->name }}</h3>
             </div>
         @endforeach
     </div>
 </section>
+
 
 
   <!-- Features Section -->
@@ -141,7 +142,7 @@
     <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
       #{{ $event->category?->name ?? 'Uncategorized' }}
     </span>
-    <a href="" class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">Learn More</a>
+    <a href="{{ route('events.index', $event->id) }}" class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-white mr-2 mb-2">Learn More</a>
   </div>
 </div>
 @endforeach
