@@ -33,6 +33,9 @@ Route::get('/events/{event}', [EventController::class, 'show'])->name('events.in
 
 Route::get('/categories/{id}/events', [EventController::class, 'showByCategory'])->name('events.events_by_categ');
 
+//booking routes
+Route::post('/events/{event}/book', [App\Http\Controllers\Organizer\BookingController::class, 'bookEvent'])->name('events.book')->middleware('auth');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
