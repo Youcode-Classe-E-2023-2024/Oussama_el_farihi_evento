@@ -16,16 +16,26 @@ class BookingController extends Controller
     }
 
     public function bookEvent(Request $request, $eventId)
-    {
-        $event = Event::findOrFail($eventId);
-        $user = Auth::user();
+{
+    $event = Event::findOrFail($eventId);
+    $user = Auth::user();
 
-        // Create a booking
+    // Check if the user has already booked this event
+    $existingBooking = Booking::where('event_id', $event->id)->where('user_id', $user->id)->first();
+    
+    if ($existingBooking) {
+        return redirect()->back()->with('error', 'You have already booked this event.');
+    }
+
+    if ($event->available_spots > 0) {
+        // Proceed with booking
         $booking = new Booking();
         $booking->event_id = $event->id;
         $booking->user_id = $user->id;
-        // Add any other relevant fields to the booking
         $booking->save();
+
+        // Decrease the available spots
+        $event->decrement('available_spots');
 
         // Check the booking type of the event
         if ($event->bookings_type == 1) { // Automatic
@@ -33,12 +43,17 @@ class BookingController extends Controller
             $ticket = new Ticket();
             $ticket->event_id = $event->id;
             $ticket->user_id = $user->id;
-            // Add any other relevant fields to the ticket
             $ticket->save();
 
             return redirect()->back()->with('success', 'Your booking has been confirmed, and your ticket is ready.');
         } else {
+            // For manual approval
             return redirect()->back()->with('info', 'Your booking request has been submitted. Please wait for confirmation.');
         }
+    } else {
+        // No available spots
+        return redirect()->back()->with('error', 'Sorry, there are no available spots for this event.');
     }
+}
+
 }
