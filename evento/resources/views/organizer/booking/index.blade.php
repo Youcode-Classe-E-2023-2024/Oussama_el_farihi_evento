@@ -12,20 +12,21 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @forelse($events as $event)
-                        <tr>
-                            <td class="border px-4 py-2">{{ $event->title }}</td>
-                            <td class="border px-4 py-2">{{ $event->date->format('m/d/Y') }}</td>
-                            <td class="border px-4 py-2">{{ $event->location }}</td>
-                            <td class="border px-4 py-2">
-                                <a href="" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Approve</a>
-                            </td>
-                        </tr>
-                    @empty
-                        <tr>
-                            <td colspan="4" class="border px-4 py-2 text-center">No events awaiting approval.</td>
-                        </tr>
-                    @endforelse
+                @foreach($bookings as $booking)
+    <tr>
+        <td>{{ $booking->event->title }}</td>
+        <td>{{ $booking->event->date->format('m/d/Y') }}</td>
+        <td>{{ $booking->event->location }}</td>
+        <td>
+            @if(!$booking->is_approved) <!-- Assuming 'is_approved' marks the booking status -->
+                <a href="{{ route('organizer.bookings.approve', $booking->id) }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Approve</a>
+            @else
+                Approved
+            @endif
+        </td>
+    </tr>
+@endforeach
+
                 </tbody>
             </table>
         </div>

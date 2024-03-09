@@ -80,6 +80,8 @@ Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organi
     Route::put('/events/{event}', [EventController::class, 'update'])->name('events.update');
 
     Route::get('/booking', [BookingController::class, 'index'])->name('booking.index');
+    Route::get('/bookings/{booking}/approve', [BookingController::class, 'approveBooking'])->name('bookings.approve');
+
 
 
 });

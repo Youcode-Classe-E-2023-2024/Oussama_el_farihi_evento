@@ -2,28 +2,44 @@
 
 namespace App\Http\Controllers\Organizer;
 
-use PDF;
 
 
 use App\Models\Event;
 use App\Models\Ticket;
 use App\Models\Booking;
+use Barryvdh\DomPDF\PDF;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+
 class BookingController extends Controller
 {
-    public function index(){
-        // Retrieve events with bookings where booking_type is 0
-        $events = Event::whereHas('bookings', function($query) {
-            $query->where('bookings_type', 0);
-        })->get();
-    
-        return view('organizer.booking.index', compact('events'));
-    }
+    public function index()
+{
+    // Fetch bookings that are not approved yet for manual approval events
+    $bookings = Booking::whereHas('event', function($query) {
+        $query->where('bookings_type', 0); // manual approval type
+    })->where('is_approved', false)->get();
+
+    return view('organizer.booking.index', compact('bookings'));
+}
+
+public function approveBooking($bookingId)
+{
+    $booking = Booking::findOrFail($bookingId);
+    // Assuming 'is_approved' or similar field exists and marks approval
+    $booking->is_approved = true;
+    $booking->save();
+
+    // Optional: Generate and save the ticket here if necessary
+
+    return redirect()->route('organizer.booking.index')->with('success', 'Booking approved successfully.');
+}
+
+
     
 
-    public function bookEvent(Request $request, $eventId)
+public function bookEvent(Request $request, $eventId, PDF $pdf)
 {
     $event = Event::findOrFail($eventId);
     $user = Auth::user();
@@ -40,13 +56,14 @@ class BookingController extends Controller
         $booking = new Booking();
         $booking->event_id = $event->id;
         $booking->user_id = $user->id;
+        // Set is_approved based on the booking type of the event
+        $booking->is_approved = $event->bookings_type == 1; // true for automatic (1), false otherwise
         $booking->save();
 
         // Decrease the available spots
         $event->decrement('available_spots');
 
-        // Check the booking type of the event
-        if ($event->bookings_type == 1) { // Automatic
+        if ($event->bookings_type == 1) { // Automatic booking type
             // Generate and save a ticket
             $ticket = new Ticket();
             $ticket->event_id = $event->id;
@@ -54,23 +71,19 @@ class BookingController extends Controller
             $ticket->booking_id = $booking->id;
             $ticket->save();
 
-            return redirect()->back()->with('success', 'Your booking has been confirmed, and your ticket is ready.');
+            // Use the injected PDF instance to load the view and generate the PDF
+            $pdf = $pdf->loadView('tickets.download', ['event' => $event, 'user' => $user, 'ticket' => $ticket]);
+            return $pdf->download('ticket-'.$event->id.'-'.$user->id.'.pdf');
         } else {
+            // For manual approval, no PDF download initiated
             return redirect()->back()->with('info', 'Your booking request has been submitted. Please wait for confirmation.');
         }
     } else {
         // No available spots
         return redirect()->back()->with('error', 'Sorry, there are no available spots for this event.');
     }
-
-    if ($event->bookings_type == 1) { 
-
-        $pdf = PDF::loadView('tickets.download', ['event' => $event, 'user' => $user, 'ticket' => $ticket]);
-        return $pdf->download('ticket-'.$event->id.'-'.$user->id.'.pdf');
-    } else {
-        return redirect()->back()->with('info', 'Your booking request has been submitted. Please wait for confirmation.');
-    }
 }
+
 
 
 
