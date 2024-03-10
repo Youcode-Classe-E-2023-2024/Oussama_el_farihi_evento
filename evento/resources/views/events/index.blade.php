@@ -13,7 +13,7 @@
   <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
     <div class="flex items-center">
     <a href="http://127.0.0.1:8000">
-      <img src='images\evento.png' alt="Logo" class="h-4" /></a>
+      <img src='{{ asset('images\evento.png') }}' alt="Logo" class="h-4" /></a>
     </div>
     <ul class="font-montserrat items-center hidden md:flex">
       <li class="mx-3 ">
