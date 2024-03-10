@@ -10,22 +10,56 @@
 </head>
 <body class="bg-secondary text-gray-900 font-montserrat">
     <!-- Navigation -->
-    <nav class="fixed flex justify-between items-center py-4 w-full px-4 bg-secondary z-50">
-        <img src="../assets/Logo_black.svg" alt="Logo" class="h-8">
-        <div class="hidden md:flex space-x-4">
-            <a href="howitworks" class="text-white hover:text-gray-300">How it works</a>
-            <a href="features" class="text-white hover:text-gray-300">Features</a>
-            <a href="pricing" class="text-white hover:text-gray-300">Pricing</a>
-        </div>
-        <!-- Authentication Links -->
-        <div class="hidden md:flex space-x-4">
-            <a href="{{ route('login') }}" class="text-white hover:text-gray-300">Log in</a>
-            <a href="{{ route('register') }}" class="bg-white text-black px-4 py-2 rounded-lg">Register</a>
-        </div>
-        <div class="md:hidden">
-            <img src="../assets/logos/Menu.svg" alt="Menu icon">
-        </div>
-    </nav>
+  <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
+    <div class="flex items-center">
+      <img src='..\images\evento.png' alt="Logo" class="h-4"/>
+    </div>
+    <ul class="font-montserrat items-center hidden md:flex">
+      <li class="mx-3 ">
+        <a class="growing-underline" href="#categories">
+          Categories
+        </a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="#events">Events</a>
+      </li>
+      <li class="growing-underline mx-3">
+        <a href="pricing">Pricing</a>
+      </li>
+    </ul>
+    @if (Route::has('login'))
+                <div class="font-montserrat hidden md:block">
+                    @auth
+                        <a href="{{ url('/dashboard') }}" class="font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white focus:outline focus:outline-2 focus:rounded-sm focus:outline-red-500">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="mr-6">Log in</a>
+
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="py-2 px-4 text-white bg-black rounded-3xl">Register</a>
+                        @endif
+                    @endauth
+                </div>
+            @endif
+    <div id="showMenu" class="md:hidden">
+      <img src='assets/logos/Menu.svg' alt="Menu icon" />
+    </div>
+  </nav>
+  <div id='mobileNav' class="hidden px-4 py-6 fixed top-0 left-0 h-full w-full bg-secondary z-20 animate-fade-in-down">
+    <div id="hideMenu" class="flex justify-end">
+      <img src='assets/logos/Cross.svg' alt="" class="h-16 w-16" />
+    </div>
+    <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
+      <li class="my-6">
+        <a href="categories">Categories</a>
+      </li>
+      <li class="my-6">
+        <a href="events">Events</a>
+      </li>
+      <li class="my-6">
+        <a href="pricing">Pricing</a>
+      </li>
+    </ul>
+  </div>
 
     
 <!-- Hero Section -->
@@ -94,17 +128,27 @@
 
 
     <!-- Footer -->
-    <footer class="bg-black py-8 mt-12">
-        <div class="container mx-auto text-center">
-            <img src="../assets/Logo_white.svg" alt="Logo" class="h-6 mx-auto mb-4">
-            <div class="flex justify-center space-x-4 mb-4">
-                <a href="#"><img src="../assets/logos/Facebook.svg" alt="Facebook logo"></a>
-                <a href="#"><img src="../assets/logos/Youtube.svg" alt="Youtube logo"></a>
-                <a href="#"><img src="../assets/logos/Instagram.svg" alt="Instagram logo"></a>
-                <a href="#"><img src="../assets/logos/Twitter.svg" alt="Twitter logo"></a>
-            </div>
-            <p class="text-white text-sm">© 2021 STARTUP. All rights reserved</p>
-        </div>
-    </footer>
+  <section class="bg-black sectionSize">
+    <div class="mb-4">
+      <img src='..\images\evento.png' alt="Logo" class="h-4" />
+    </div>
+    <div class="flex mb-8">
+      <a href="#">
+        <img src='..\assets/logos/Facebook.svg' alt="Facebook logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='..\assets/logos/Youtube.svg' alt="Youtube logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='..\assets/logos/Instagram.svg' alt="Instagram logo" class="mx-4" />
+      </a>
+      <a href="#">
+        <img src='..\assets/logos/Twitter.svg' alt="Twitter logo" class="mx-4" />
+      </a>
+    </div>
+    <div class="text-white font-montserrat text-sm">
+      © 2021 EVENTO. All rights reserved
+    </div>
+  </section>
 </body>
 </html>

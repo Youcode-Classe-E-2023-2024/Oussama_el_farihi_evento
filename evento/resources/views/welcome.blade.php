@@ -163,10 +163,10 @@
             <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" />
             </svg>
-            City: {{ $event->city }}
+            City: {{ $event->location }}
           </div>
-          <div class="text-gray-600 text-sm mb-4">Place: {{ $event->place_number }}</div>
-          <span class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-blak mr-2 mb-2">
+          <div class="text-gray-600 text-sm mb-4">Place: {{ $event->available_spots }}</div>
+          <span class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-black mr-2 mb-2">
             #{{ $event->category?->name ?? 'Uncategorized' }}
           </span>
           <a href="{{ route('events.index', $event->id) }}" class="inline-flex items-center justify-center bg-primary rounded-full px-4 py-2 text-sm font-semibold text-black hover:bg-primary-dark transition-colors duration-200">
