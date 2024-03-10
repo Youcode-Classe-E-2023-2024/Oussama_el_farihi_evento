@@ -49,4 +49,10 @@ class User extends Authenticatable
     public static function getTotalUsers() {
         return User::count();
     }
+
+    public function events()
+{
+    return $this->hasMany(Event::class);
+}
+
 }

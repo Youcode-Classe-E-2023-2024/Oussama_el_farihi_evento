@@ -73,6 +73,9 @@ Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->
 
 Route::middleware(['auth', 'role:organizer', 'checkIfRestricted'])->name('organizer.')->prefix('organizer')->group(function () {
     Route::get('/', [IndexxController::class, 'index'])->name('index');
+    Route::get('/', [IndexxController::class, 'eventStatistics'])->name('index');
+    
+
     Route::get('/events/create', [EventController::class, 'index'])->name('events.create');
     Route::post('/events', [EventController::class, 'store'])->name('events.store');
     Route::get('/events', [EventController::class, 'index2'])->name('events.index');

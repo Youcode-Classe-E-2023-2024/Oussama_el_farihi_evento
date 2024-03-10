@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Organizer;
 
 use App\Models\Event;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Category;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -42,6 +43,8 @@ class EventController extends Controller
             'bookings_type' => 'required|integer',
             'image' => 'sometimes|file|image|max:5000',
         ]);
+
+        $data['user_id'] = Auth::id();
 
         if ($request->hasFile('image')) {
             $data['image'] = $request->file('image')->store('event_images', 'public');
@@ -91,6 +94,7 @@ public function showByCategory($id)
 
     return view('events.events_by_categ', compact('events', 'category'));
 }
+
 
 
 
