@@ -8,6 +8,7 @@
   <title>Evento</title>
   <link rel="stylesheet" href="style.css" />
   <script src="script.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 
 <body>
@@ -117,6 +118,15 @@
 
 
 <!-- Features Section -->
+<!-- Search Bar -->
+<div class="text-center mt-8">
+  <input type="text" id="search" placeholder="Search events by title..." class="px-4 py-2 border-2 border-gray-300 rounded-lg">
+  <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Search</button>
+</div>
+
+<!-- Search Results Container -->
+<div id="searchResults"></div>
+
 <section class="py-12 bg-secondary">
   <div class="text-center">
     <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">Events</h2>
@@ -316,5 +326,21 @@
     </div>
   </section>
 </body>
+<script>
+$(document).ready(function() {
+  $('#searchButton').click(function() {
+    var query = $('#search').val();
+    $.ajax({
+      url: "{{ route('search-events') }}",
+      type: "GET",
+      data: { 'search': query },
+      success: function(data) {
+        $('#searchResults').html(data);
+      }
+    });
+  });
+});
+</script>
+
 
 </html>

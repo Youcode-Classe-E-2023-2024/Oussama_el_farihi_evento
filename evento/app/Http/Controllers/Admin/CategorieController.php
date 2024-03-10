@@ -49,5 +49,13 @@ class CategorieController extends Controller
     return view('welcome', compact('categories', 'events'));
 }
 
+public function searchEvents(Request $request)
+{
+    $search = $request->input('search');
+    $events = Event::where('title', 'like', '%' . $search . '%')->get();
+    return view('events.partials.searchResults', compact('events'));
+}
+
+
 
 }

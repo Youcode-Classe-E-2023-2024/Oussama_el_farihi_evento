@@ -28,6 +28,7 @@ use App\Http\Controllers\Organizer\IndexController as IndexxController;
 // });
 
 Route::get('/', [CategorieController::class, 'indexWelcome'])->name('welcome');
+Route::get('/search-events', [CategorieController::class, 'searchEvents'])->name('search-events');
 
 Route::get('/events/{event}', [EventController::class, 'show'])->name('events.index');
 
