@@ -45,4 +45,8 @@ class User extends Authenticatable
         'password' => 'hashed',
         'restricted' => 'boolean',
     ];
+
+    public static function getTotalUsers() {
+        return User::count();
+    }
 }

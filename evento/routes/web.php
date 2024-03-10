@@ -52,6 +52,8 @@ Route::middleware(['auth', 'checkIfRestricted'])->group(function () {
 
 Route::middleware(['auth', 'role:admin', 'checkIfRestricted'])->name('admin.')->prefix('admin')->group(function () {
     Route::get('/', [IndexController::class, 'index'])->name('index');
+    Route::get('/', [IndexController::class, 'getStats'])->name('index');
+
     Route::get('/roles', [RoleController::class, 'index'])->name('roles.index');
     Route::post('/roles/assign', [RoleController::class, 'assign'])->name('roles.assign');
     Route::get('/restricte', [RestricteController::class, 'index'])->name('restricte.index');
