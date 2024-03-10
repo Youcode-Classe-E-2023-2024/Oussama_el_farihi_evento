@@ -15,19 +15,20 @@
   <!-- Navigation -->
   <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
     <div class="flex items-center">
-      <img src='images\evento.png' alt="Logo" class="h-4" />
+    <a href="http://127.0.0.1:8000">
+      <img src='images\evento.png' alt="Logo" class="h-4" /></a>
     </div>
     <ul class="font-montserrat items-center hidden md:flex">
       <li class="mx-3 ">
-        <a class="growing-underline" href="#categories">
+        <a class="growing-underline" href="http://127.0.0.1:8000/#categories">
           Categories
         </a>
       </li>
       <li class="growing-underline mx-3">
-        <a href="#events">Events</a>
+        <a href="http://127.0.0.1:8000/#events">Events</a>
       </li>
       <li class="growing-underline mx-3">
-        <a href="pricing">Pricing</a>
+        <a href="http://127.0.0.1:8000/#pricing">Pricing</a>
       </li>
       <li class="growing-underline mx-3">
         <a href="{{ route('user.bookings') }}">Booking status</a>
@@ -189,7 +190,7 @@
 
 
   <!-- Pricing -->
-  <section class="sectionSize bg-secondary py-0">
+  <section class="sectionSize bg-secondary py-0" id="pricing">
     <div>
       <h2 class="secondaryTitle bg-underline4 mb-0 bg-100%">Pricing</h2>
     </div>
