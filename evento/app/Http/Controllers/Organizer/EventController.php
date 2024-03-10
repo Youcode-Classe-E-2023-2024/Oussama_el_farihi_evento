@@ -13,7 +13,8 @@ class EventController extends Controller
 
     public function index2()
 {
-    $events = Event::all();
+    $organizerId = auth()->id();
+    $events = Event::where('user_id', $organizerId)->get();
     // dd($events);
     return view('organizer.events.index', compact('events'));
 }

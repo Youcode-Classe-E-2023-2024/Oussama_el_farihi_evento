@@ -14,14 +14,17 @@ use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
-    public function index()
+   public function index()
 {
-    $bookings = Booking::whereHas('event', function($query) {
-        $query->where('bookings_type', 0);
+    $organizerId = auth()->id();
+    $bookings = Booking::whereHas('event', function($query) use ($organizerId) {
+        $query->where('bookings_type', 0)
+              ->where('user_id', $organizerId);
     })->where('is_approved', false)->get();
 
     return view('organizer.booking.index', compact('bookings'));
 }
+
 
 public function approveBooking($bookingId)
 {
