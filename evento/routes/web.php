@@ -36,6 +36,9 @@ Route::get('/categories/{id}/events', [EventController::class, 'showByCategory']
 
 //booking routes
 Route::post('/events/{event}/book', [BookingController::class, 'bookEvent'])->name('events.book')->middleware('auth');
+Route::get('/bookings', [BookingController::class, 'showBookings'])->name('user.bookings')->middleware('auth');
+Route::get('/bookings/{booking}/download-ticket', [BookingController::class, 'downloadTicket'])->name('bookings.download-ticket')->middleware('auth');
+
 
 
 Route::get('/dashboard', function () {

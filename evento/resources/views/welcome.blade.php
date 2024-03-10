@@ -29,6 +29,9 @@
       <li class="growing-underline mx-3">
         <a href="pricing">Pricing</a>
       </li>
+      <li class="growing-underline mx-3">
+        <a href="{{ route('user.bookings') }}">Booking status</a>
+      </li>
     </ul>
     @if (Route::has('login'))
                 <div class="font-montserrat hidden md:block">

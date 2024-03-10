@@ -79,4 +79,42 @@ public function bookEvent(Request $request, $eventId, PDF $pdf)
 
 
 
+public function showBookings()
+    {
+        $bookings = Auth::user()->bookings()->with('event')->get();
+        return view('user.bookings', compact('bookings'));
+    }
+
+   public function downloadTicket($bookingId, PDF $pdf)
+{
+    $booking = Booking::with(['event', 'user'])->findOrFail($bookingId);
+
+    if ($booking->user_id !== Auth::id() || !$booking->is_approved) {
+        abort(403, 'You are not authorized to download this ticket or the booking is not approved.');
+    }
+
+    $ticket = $booking->ticket;
+
+    if (is_null($ticket)) {
+        abort(404, 'Ticket not found.');
+    }
+
+    $event = $booking->event;
+    $user = $booking->user;
+
+    $pdf = $pdf->loadView('tickets.download', [
+        'event' => $event,
+        'user' => $user,
+        'ticket' => $ticket
+    ]);
+
+    return $pdf->download('ticket-' . $event->id . '-' . $user->id . '.pdf');
+}
+
+
+
+
+
+
+
 }
