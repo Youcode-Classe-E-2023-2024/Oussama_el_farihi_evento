@@ -15,16 +15,16 @@
   <!-- Navigation -->
   <nav class="fixed flex justify-between py-6 w-full lg:px-48 md:px-12 px-4 content-center bg-secondary z-10">
     <div class="flex items-center">
-      <img src='assets/Logo_black.svg' alt="Logo" class="h-4" />
+      <img src='images\evento.png' alt="Logo" class="h-4" />
     </div>
     <ul class="font-montserrat items-center hidden md:flex">
       <li class="mx-3 ">
-        <a class="growing-underline" href="howitworks">
-          How it works
+        <a class="growing-underline" href="#categories">
+          Categories
         </a>
       </li>
       <li class="growing-underline mx-3">
-        <a href="features">Features</a>
+        <a href="#events">Events</a>
       </li>
       <li class="growing-underline mx-3">
         <a href="pricing">Pricing</a>
@@ -53,10 +53,10 @@
     </div>
     <ul class="font-montserrat flex flex-col mx-8 my-24 items-center text-3xl">
       <li class="my-6">
-        <a href="howitworks">How it works</a>
+        <a href="categories">Categories</a>
       </li>
       <li class="my-6">
-        <a href="features">Features</a>
+        <a href="events">Events</a>
       </li>
       <li class="my-6">
         <a href="pricing">Pricing</a>
@@ -69,9 +69,9 @@
     class="pt-24 md:mt-0 md:h-screen flex flex-col justify-center text-center md:text-left md:flex-row md:justify-between md:items-center lg:px-48 md:px-12 px-4 bg-secondary">
     <div class="md:flex-1 md:mr-10">
       <h1 class="font-pt-serif text-5xl font-bold mb-7">
-        A headline for your
+        The best events management
         <span class="bg-underline1 bg-left-bottom bg-no-repeat pb-2 bg-100%">
-          cool website
+          website ever
         </span>
       </h1>
       <p class="font-pt-serif font-normal mb-7">
@@ -99,7 +99,7 @@
   </section>
 
   <!-- Categories Section -->
-  <section class="bg-black text-white sectionSize">
+  <section class="bg-black text-white sectionSize" id="categories">
     <div>
         <h2 class="secondaryTitle bg-underline2 bg-100%">Categories</h2>
     </div>
@@ -118,19 +118,31 @@
 
 
 <!-- Features Section -->
-<!-- Search Bar -->
-<div class="text-center mt-8">
-  <input type="text" id="search" placeholder="Search events by title..." class="px-4 py-2 border-2 border-gray-300 rounded-lg">
-  <button id="searchButton" class="bg-blue-500 text-white px-4 py-2 rounded-lg">Search</button>
+<section class="py-12 bg-secondary" id="events">
+  <div class="text-center">
+    <h2 class="text-3xl lg:text-4xl font-bold text-black mb-8">Events</h2>
+  </div>
+  
+<!-- Redesigned Search Bar -->
+<div class="text-center mt-8 mb-4">
+  <div class="max-w-md mx-auto">
+    <div class="relative flex items-center w-full h-12 rounded-full bg-white overflow-hidden shadow-md hover:shadow-lg focus-within:shadow-lg">
+      <div class="grid place-items-center h-full w-12 text-gray-300">
+      <button id="searchButton" aria-label="Search">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+        </button>
+      </div>
+      <input type="text" id="search" class="peer h-full w-full outline-none text-sm text-gray-700 pl-2 pr-2" placeholder="Search events by title..." />
+    </div>
+  </div>
 </div>
 
-<!-- Search Results Container -->
-<div id="searchResults"></div>
 
-<section class="py-12 bg-secondary">
-  <div class="text-center">
-    <h2 class="text-3xl lg:text-4xl font-bold text-white mb-8">Events</h2>
-  </div>
+  <!-- Search Results Container -->
+  <div id="searchResults" class="mb-4"></div>
+
   <div class="container mx-auto px-4">
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
       @foreach ($events as $event)
@@ -141,10 +153,20 @@
           <p class="text-gray-700 text-base mb-4">
             {{ Str::limit($event->description, 100) }}
           </p>
-          <div class="text-gray-600 text-sm mb-2">Date: {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}</div>
-          <div class="text-gray-600 text-sm mb-2">Place: {{ $event->place_number }}</div>
-          <div class="text-gray-600 text-sm mb-4">City: {{ $event->city }}</div>
-          <span class="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2 mb-2">
+          <div class="flex items-center text-gray-600 text-sm mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Date: {{ \Carbon\Carbon::parse($event->date)->format('d M Y') }}
+          </div>
+          <div class="flex items-center text-gray-600 text-sm mb-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.343-3 3s1.343 3 3 3 3-1.343 3-3-1.343-3-3-3zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2z" />
+            </svg>
+            City: {{ $event->city }}
+          </div>
+          <div class="text-gray-600 text-sm mb-4">Place: {{ $event->place_number }}</div>
+          <span class="inline-block bg-primary rounded-full px-3 py-1 text-sm font-semibold text-blak mr-2 mb-2">
             #{{ $event->category?->name ?? 'Uncategorized' }}
           </span>
           <a href="{{ route('events.index', $event->id) }}" class="inline-flex items-center justify-center bg-primary rounded-full px-4 py-2 text-sm font-semibold text-black hover:bg-primary-dark transition-colors duration-200">
@@ -159,6 +181,7 @@
       {{ $events->links() }}
     </div>
   </section>
+
 
 
 
@@ -305,7 +328,7 @@
   <!-- Footer -->
   <section class="bg-black sectionSize">
     <div class="mb-4">
-      <img src='assets/Logo_white.svg' alt="Logo" class="h-4" />
+      <img src='images\evento.png' alt="Logo" class="h-4" />
     </div>
     <div class="flex mb-8">
       <a href="#">
@@ -322,7 +345,7 @@
       </a>
     </div>
     <div class="text-white font-montserrat text-sm">
-      © 2021 STARTUP. All rights reserved
+      © 2021 EVENTO. All rights reserved
     </div>
   </section>
 </body>
