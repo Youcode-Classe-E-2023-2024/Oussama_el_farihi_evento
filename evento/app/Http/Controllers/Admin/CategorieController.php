@@ -6,6 +6,7 @@ use App\Models\Event;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Cache;
 
 class CategorieController extends Controller
 {
@@ -42,7 +43,10 @@ class CategorieController extends Controller
     public function indexWelcome()
 {
     $categories = Category::all();
-    $events = Event::where('status', 1)->paginate(6);
+    
+    $events = Cache::remember('events', 60, function () {
+        return Event::where('status', 1)->paginate(6);
+    });
 
     // dd($categories, $events);
 

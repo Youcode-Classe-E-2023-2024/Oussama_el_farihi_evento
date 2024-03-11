@@ -7,6 +7,7 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class EventController extends Controller
 {
@@ -26,6 +27,10 @@ class EventController extends Controller
     public function edit($eventId)
 {
     $event = Event::findOrFail($eventId);
+
+    // Clear the events cache
+    Cache::forget('events');
+
 
     return view('organizer.events.edit', compact('event'));
 }
@@ -54,6 +59,9 @@ class EventController extends Controller
         Event::create($data);
 
         // dd($request);
+        // Clear the events cache
+        Cache::forget('events');
+
 
         return redirect()->route('organizer.events.index')->with('success', 'Event created successfully.');
     }
@@ -71,6 +79,10 @@ class EventController extends Controller
     $event = Event::findOrFail($eventId);
     $event->update($validatedData);
 
+    // Clear the events cache
+    Cache::forget('events');
+
+
     return redirect()->route('organizer.events.index')->with('success', 'Event updated successfully.');
 }
 
@@ -79,19 +91,30 @@ public function destroy($eventId)
     $event = Event::findOrFail($eventId);
     $event->delete();
 
+    // Clear the events cache
+    Cache::forget('events');
+
+
     return redirect()->route('organizer.events.index')->with('success', 'Event deleted successfully.');
 }
 
 public function show($eventId)
 {
-    $event = Event::findOrFail($eventId);
+    $event = Cache::remember("events.show.{$eventId}", 60, function () use ($eventId) {
+        return Event::findOrFail($eventId);
+    });
+
+
     return view('events.index', compact('event'));
 }
 
 public function showByCategory($id)
 {
     $category = Category::findOrFail($id);
-    $events = Event::where('category_id', $id)->get();
+    $events = Cache::remember("events.category.{$id}", 60, function () use ($id) {
+        return Event::where('category_id', $id)->get();
+    });
+
 
     return view('events.events_by_categ', compact('events', 'category'));
 }
